@@ -36,7 +36,7 @@ export default function AppSideBar() {
             className={cn(
               "flex items-center gap-3 px-4 py-3 text-lg hover:border-white hover:border-l-4 ease-in-out hover:bg-black/10 text-white transition-all cursor-pointer",
               {
-                "bg-muted text-white bg-black/30 border-white border-l-4 backdrop-filter backdrop-blur-sm bg-opacity-30 shadow-3xl ":
+                " text-white bg-black/30 border-white border-l-4 backdrop-filter backdrop-blur-sm bg-opacity-30 shadow-3xl ":
                   path === location.pathname,
               }
             )}

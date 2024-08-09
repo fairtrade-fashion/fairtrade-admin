@@ -1,5 +1,12 @@
-import { AiFillAppstore, AiOutlineAppstore } from "react-icons/ai";
+import {
+  AiFillAppstore,
+  AiFillProduct,
+  AiOutlineAppstore,
+} from "react-icons/ai";
 import { RiLuggageCartFill, RiLuggageCartLine } from "react-icons/ri";
+import { GiReceiveMoney } from "react-icons/gi";
+import { FaClipboardList } from "react-icons/fa";
+import { ImUsers } from "react-icons/im";
 
 export const routes = [
   {
@@ -24,4 +31,35 @@ export const routes = [
   //     label: "Revenue Assurance",
   //     icon: <FaSackDollar className="h-6 w-6" />,
   //   },
+];
+
+export const counterData = [
+  {
+    title: "total sales",
+    icon: <GiReceiveMoney size={30} />,
+    count: 20000,
+    color: "text-green-500",
+    background: "bg-green-100",
+  },
+  {
+    title: "total order",
+    icon: <FaClipboardList size={30} />,
+    count: 20000,
+    color: "text-blue-500",
+    background: "bg-blue-100",
+  },
+  {
+    title: "total customers",
+    icon: <ImUsers size={30} />,
+    count: 20000,
+    color: "text-orange-500",
+    background: "bg-orange-100",
+  },
+  {
+    title: "total products",
+    icon: <AiFillProduct size={30} />,
+    count: 20000,
+    color: "text-[#B91372]",
+    background: "bg-[#B91372]/10",
+  },
 ];

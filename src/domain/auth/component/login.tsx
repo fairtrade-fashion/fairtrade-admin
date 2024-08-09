@@ -7,26 +7,22 @@ import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(2, {
-    message: "Password is required",
-  }),
-});
+import { formSchema } from "@/utils/validation.schema";
+import { useLoginMutation } from "../api/auth.api";
+import { storeToken } from "@/config/token";
+import { toast } from "sonner";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [storedUsername, setStoredUsername] = useState("");
+  const [storedEmail, setStoredEmail] = useState("");
   const [showPasswordText, setShowPasswordText] = useState(false);
   const navigate = useNavigate();
+  const [doLogin] = useLoginMutation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -34,26 +30,19 @@ export default function Login() {
   useEffect(() => {
     const username = localStorage.getItem("username");
     if (username) {
-      setStoredUsername(username);
+      setStoredEmail(username);
       setShowPassword(true);
     }
   }, []); // Empty dependency array
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form submitted", values);
-    console.log("Form errors", form.formState.errors);
-    localStorage.removeItem("username");
-    navigate("/admin/dashboard");
-  }
-
   function handleNextClick() {
-    const username = form.getValues("username");
+    const username = form.getValues("email");
     if (username.length >= 2) {
       localStorage.setItem("username", username);
-      setStoredUsername(username);
+      setStoredEmail(username);
       setShowPassword(true);
     } else {
-      form.setError("username", {
+      form.setError("email", {
         type: "manual",
         message: "Username must be at least 2 characters.",
       });
@@ -62,9 +51,21 @@ export default function Login() {
 
   function handleBack() {
     setShowPassword(false);
-    setStoredUsername("");
+    setStoredEmail("");
     localStorage.removeItem("username");
   }
+
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const response = await doLogin(data).unwrap();
+      if (response.token) {
+        storeToken("access_token", response.token);
+        navigate("/admin/dashboard");
+      }
+    } catch (error) {
+      
+    }
+  };
 
   return (
     <div className="w-[50%] h-auto">
@@ -82,13 +83,10 @@ export default function Login() {
               transition={{ duration: 0.3 }}
             >
               <div>
-                <Input
-                  placeholder="Username or Email"
-                  {...form.register("username")}
-                />
-                {form.formState.errors.username && (
+                <Input placeholder=" Email" {...form.register("email")} />
+                {form.formState.errors.email && (
                   <p className="text-red-500">
-                    {form.formState.errors.username.message}
+                    {form.formState.errors.email.message}
                   </p>
                 )}
               </div>
@@ -107,8 +105,8 @@ export default function Login() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              {storedUsername && (
-                <p className="mb-4">Logging in as: {storedUsername}</p>
+              {storedEmail && (
+                <p className="mb-4">Logging in as: {storedEmail}</p>
               )}
               <div>
                 <div className="relative">

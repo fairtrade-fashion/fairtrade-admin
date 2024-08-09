@@ -3,7 +3,7 @@ import back from "../../../assets/background-auth.svg";
 
 export default function AuthLayout() {
   return (
-    <div className="w-[100vw] h-[100vh] lg:grid grid-cols-3 bg-white">
+    <div className="w-screen h-screen lg:grid grid-cols-3 bg-white">
       <div className="col-span-2 h-full w-full flex items-center justify-center">
         <Outlet />
       </div>

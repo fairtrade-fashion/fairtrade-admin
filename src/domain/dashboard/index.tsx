@@ -1,3 +1,9 @@
+import Counter from "./components/counter";
+
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <div className="w-full">
+      <Counter />
+    </div>
+  );
 }
