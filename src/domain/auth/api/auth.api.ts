@@ -22,7 +22,6 @@ export const loginApi = createApi({
       invalidatesTags: ["Auth"],
       transformResponse: (response: { token: string }) => {
         storeToken("access_token", response.token);
-        console.log(import.meta.env.VITE_API_URL);
         return response;
       },
     }),

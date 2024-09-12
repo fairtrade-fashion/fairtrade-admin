@@ -5,19 +5,24 @@ import { fetchToken } from "@/config/token";
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
   prepareHeaders: (headers) => {
-    // By default, if we have a token in the store, let's use that for authenticated requests
     const token = fetchToken("access_token");
-    if (token) {
-      headers.set("authentication", `Bearer ${token}`);
-    }
+    console.log("Fetched Token:", token);
+    const authHeaders = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    Object.entries(authHeaders).forEach(([key, value]) => {
+      headers.set(key, value as string);
+    });
     return headers;
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 });
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
 export const api = createApi({
   reducerPath: "splitApi",
   baseQuery: baseQueryWithRetry,
-  tagTypes: [],
+  tagTypes: ["Category", "Color", "Size", "Products"],
   endpoints: () => ({}),
 });

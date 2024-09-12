@@ -7,6 +7,8 @@ import { RiLuggageCartFill, RiLuggageCartLine } from "react-icons/ri";
 import { GiReceiveMoney } from "react-icons/gi";
 import { FaClipboardList } from "react-icons/fa";
 import { ImUsers } from "react-icons/im";
+import { HiClipboardDocumentList } from "react-icons/hi2";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 export const routes = [
   {
@@ -14,6 +16,12 @@ export const routes = [
     label: "Dashboard",
     icon: <AiFillAppstore className="h-6 w-6" />,
     icon2: <AiOutlineAppstore className="h-6 w-6" />,
+  },
+  {
+    path: "/admin/category",
+    label: "Category",
+    icon: <HiClipboardDocumentList className="h-6 w-6" />,
+    icon2: <HiOutlineClipboardDocumentList className="h-6 w-6" />,
   },
   {
     path: "/admin/products",

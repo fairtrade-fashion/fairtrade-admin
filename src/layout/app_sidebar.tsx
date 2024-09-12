@@ -14,7 +14,7 @@ export default function AppSideBar() {
 
   return (
     <div
-      className={`bg-black hidden h-full transition-all duration-700 ease-in-out lg:flex flex-col relative ${
+      className={`bg-black hidden h-screen transition-all duration-700 ease-in-out lg:flex flex-col relative ${
         isExpanded ? "w-[250px]" : "w-[50px]"
       }`}
     >
