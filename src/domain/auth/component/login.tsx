@@ -64,12 +64,12 @@ export default function Login() {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       const response = await doLogin(data).unwrap();
-      if (response.token) {
-        storeToken("access_token", response.token);
-        toast.success("Login successful");
-        navigate("/admin/dashboard");
-      } else {
-      }
+     if (response.token) {
+       storeToken("access_token", response.token);
+       toast.success("Login successful");
+       setTimeout(() => navigate("/admin/dashboard"), 0); // Adjust timing if needed
+     } else {
+     }
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null) {
         if ("status" in error) {
