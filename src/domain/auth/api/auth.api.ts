@@ -13,16 +13,19 @@ export const loginApi = createApi({
 
   tagTypes: ["Auth"],
   endpoints: (builder) => ({
-    login: builder.mutation<{ token: string }, z.infer<typeof formSchema>>({
+    login: builder.mutation<
+      { access_token: string },
+      z.infer<typeof formSchema>
+    >({
       query: (payload) => ({
         url: "auth/login",
         method: "POST",
         data: payload,
       }),
       invalidatesTags: ["Auth"],
-      transformResponse: (response: { token: string }) => {
-        storeToken("access_token", response.token);
-        console.log(import.meta.env.VITE_API_URL);
+      transformResponse: (response: { access_token: string }) => {
+        storeToken("access_token", response.access_token);
+        console.log(response);
         return response;
       },
     }),

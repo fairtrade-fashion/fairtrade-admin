@@ -10,7 +10,6 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { formSchema } from "@/utils/validation.schema";
 import { useLoginMutation } from "../api/auth.api";
 import { storeToken } from "@/config/token";
-import { toast } from "sonner";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,12 +57,12 @@ export default function Login() {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       const response = await doLogin(data).unwrap();
-      if (response.token) {
-        storeToken("access_token", response.token);
+      if (response.access_token) {
+        storeToken("access_token", response.access_token);
         navigate("/admin/dashboard");
       }
     } catch (error) {
-      
+      console.log(error);
     }
   };
 
