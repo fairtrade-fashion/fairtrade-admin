@@ -8,7 +8,7 @@ export const sizeApi = api.injectEndpoints({
   endpoints: (build) => ({
     getSizes: build.query<SizeRoot, void>({
       query: () => ({
-        url: "/size",
+        url: "/products/sizes",
         method: "GET",
       }),
       transformResponse: (response: SizeRoot) => {
@@ -19,7 +19,7 @@ export const sizeApi = api.injectEndpoints({
     }),
     createSize: build.mutation<SizeRoot, z.infer<typeof colorSchema>>({
       query: (body) => ({
-        url: "/size",
+        url: "/products/sizes",
         method: "POST",
         body: body,
       }),
@@ -30,7 +30,7 @@ export const sizeApi = api.injectEndpoints({
     }),
     deleteSize: build.mutation<SizeRoot, { id: string }>({
       query: ({ id }) => ({
-        url: `/size/${id}`,
+        url: `/products/size/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Size"],

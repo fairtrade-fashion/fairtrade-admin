@@ -117,7 +117,7 @@ export const EditProductModal: React.FC<{
               className="w-full border rounded p-2"
             >
               {categoryData?.map((category) => (
-                <option key={category.category_id} value={category.category_id}>
+                <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
               ))}

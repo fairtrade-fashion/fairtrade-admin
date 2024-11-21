@@ -8,7 +8,7 @@ export const colorApi = api.injectEndpoints({
   endpoints: (build) => ({
     getColors: build.query<ColorRoot, void>({
       query: () => ({
-        url: "/colors",
+        url: "/products/colors",
         method: "GET",
       }),
       transformResponse: (response: ColorRoot) => {
@@ -18,7 +18,7 @@ export const colorApi = api.injectEndpoints({
     }),
     createColor: build.mutation<ColorRoot, z.infer<typeof colorSchema>>({
       query: (body) => ({
-        url: "/colors",
+        url: "/products/colors",
         method: "POST",
         body: body,
       }),

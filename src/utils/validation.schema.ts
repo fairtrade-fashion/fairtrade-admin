@@ -10,9 +10,6 @@ export const categorySchema = z.object({
     .string()
     .min(1, { message: "Name is required" })
     .max(50, { message: "Name must be 50 characters or less" }),
-  description: z
-    .string()
-    .min(10, { message: "Description must be at least 10 characters long" }),
 });
 export const colorSchema = z.object({
   name: z
@@ -28,17 +25,24 @@ export const sizeSchema = z.object({
 });
 
 export const productSchema = z.object({
-  name: z.string().nonempty("Name is required."),
-  description: z.string().nonempty("Description is required."),
-  price: z.coerce.number().min(0, "Price must be greater than or equal to 0."),
-  stockQuantity: z.coerce
-    .number()
-    .int()
-    .min(0, "Stock Quantity must be greater than or equal to 0."),
-  category_id: z.string().nonempty("Category is required."),
-  sizes: z.array(z.string()).nonempty("At least one size is required."),
-  colors: z.array(z.string()).nonempty("At least one color is required."),
-  productImages: z
-    .array(z.instanceof(File))
-    .nonempty("At least one product image is required."),
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  price: z.number().positive("Price must be a positive number"),
+  stock: z.number().int().positive("Stock must be a positive integer"),
+  categoryId: z.string().min(1, "Category ID is required"),
+  imageUrls: z
+    .array(z.string().url("Invalid URL"))
+    .min(1, "At least one image URL is required"),
+  sizes: z.array(
+    z.object({
+      id: z.string(),
+      stock: z.number(),
+    })
+  ),
+  colors: z.array(
+    z.object({
+      id: z.string(),
+      stock: z.number(),
+    })
+  ),
 });

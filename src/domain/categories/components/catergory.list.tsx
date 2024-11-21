@@ -16,7 +16,6 @@ import { categorySchema } from "@/utils/validation.schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "@/components/textarea";
 import { Input } from "@/components/input";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -37,7 +36,6 @@ export default function CategoryList() {
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: "",
-      description: "",
     },
   });
 
@@ -45,7 +43,7 @@ export default function CategoryList() {
     if (editingCategory) {
       // For updating an existing category
       await updateCategory({
-        id: editingCategory.category_id,
+        id: editingCategory.id,
         data: data, // This matches the CategoryPost type
       })
         .unwrap()
@@ -53,7 +51,7 @@ export default function CategoryList() {
           toast.success("Category Updated Successfully");
           setDialogOpen(false);
           setEditingCategory(null);
-          form.reset({ name: "", description: "" });
+          form.reset({ name: "" });
         })
         .catch((error) => {
           handleError(error);
@@ -65,7 +63,7 @@ export default function CategoryList() {
         .then(() => {
           toast.success("Category Created Successfully");
           setDialogOpen(false);
-          form.reset({ name: "", description: "" });
+          form.reset({ name: "" });
         })
         .catch((error) => {
           handleError(error);
@@ -76,7 +74,6 @@ export default function CategoryList() {
     setEditingCategory(category);
     form.reset({
       name: category.name,
-      description: category.description,
     });
     setDialogOpen(true);
   };
@@ -97,7 +94,7 @@ export default function CategoryList() {
 
   const handleCreateNewCategory = () => {
     setEditingCategory(null);
-    form.reset({ name: "", description: "" });
+    form.reset({ name: "" });
     setDialogOpen(true);
   };
 
@@ -124,11 +121,11 @@ export default function CategoryList() {
                 <Input {...form.register("name")} />
                 {form.formState.errors.name?.message}
               </div>
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label htmlFor="description">Description</label>
                 <Textarea {...form.register("description")} />
                 {form.formState.errors.description?.message}
-              </div>
+              </div> */}
               <Button type="submit">Submit</Button>
             </form>
           </DialogContent>
@@ -138,7 +135,7 @@ export default function CategoryList() {
         <div className="grid lg:grid-cols-3 gap-4 w-full text-xs lg:text-base">
           {categoryData?.map((category) => (
             <div
-              key={category.category_id}
+              key={category.id}
               className="bg-white rounded-lg p-4 flex flex-col gap-3 border-2 drop-shadow-sm hover:scale-[1.01] transition-all ease-linear duration-500"
             >
               <div className="flex items-center justify-between">
@@ -146,10 +143,10 @@ export default function CategoryList() {
                   {category.name}
                 </p>
               </div>
-              <p>{category.description}</p>
+
               <div className="flex items-end justify-end h-full gap-2">
                 <Button onClick={() => handleEdit(category)}>Edit</Button>
-                <Button onClick={() => handleDelete(category.category_id)}>
+                <Button onClick={() => handleDelete(category.id)}>
                   Delete
                 </Button>
               </div>
