@@ -2,11 +2,21 @@ export interface ProductRequest {
   name: string;
   description: string;
   price: number;
-  stockQuantity: number;
-  category_id: string;
-  sizes: string[];
-  colors: string[];
-  productImages: Image[];
+  stock: number;
+  categoryId: string;
+  sizes: SizeProduct[];
+  colors: ColorProduct[];
+  imageUrls: string[];
+}
+
+export interface SizeProduct {
+  id: string;
+  stock: number;
+}
+
+export interface ColorProduct {
+  id: string;
+  stock: number;
 }
 
 export interface Image {

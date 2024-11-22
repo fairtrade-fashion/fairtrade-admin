@@ -29,7 +29,7 @@ export default function ColorsTable() {
         </div>
         <div id="table-body" className="">
           {colorData?.map((data) => (
-            (<ul
+            <ul
               key={data.color_id}
               className=" flex justify-between items-center p-2 font-bold  bg-white mb-5 border-b"
             >
@@ -42,7 +42,7 @@ export default function ColorsTable() {
               >
                 <MdDelete />
               </li>
-            </ul>)
+            </ul>
           ))}
         </div>
       </div>

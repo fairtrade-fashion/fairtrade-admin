@@ -22,15 +22,13 @@ import {
 import { useGetSizesQuery } from "@/domain/products/api/size.api";
 import { EditProduct, Product } from "@/domain/products/models/products.model";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {  FaEye } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "sonner";
 import useErrorHandler from "@/domain/categories/hooks/handle_submit.hooks";
 import { EditProductModal } from "./edit_product.modal";
-import {
-  View_ProductPage,
-} from "@/app/features/page_slider.slice";
+import { View_ProductPage } from "@/app/features/page_slider.slice";
 
 export default function ProductsPage() {
   const filterState = useAppSelector((state) => state.product);
@@ -278,7 +276,7 @@ export default function ProductsPage() {
           >
             <option value="">All Categories</option>
             {categoryData?.map((category) => (
-              <option key={category.category_id} value={category.category_id}>
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}

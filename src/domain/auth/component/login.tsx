@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,7 @@ import { storeToken } from "@/config/token";
 import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/app/app.hooks";
 import { clearEmail, setEmail } from "@/app/features/app.slice";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import useErrorHandler from "@/domain/categories/hooks/handle_submit.hooks";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,6 +22,7 @@ export default function Login() {
   const [doLogin] = useLoginMutation();
   const dispatch = useAppDispatch();
   const emailState = useAppSelector((state) => state.app.email);
+  const handleError = useErrorHandler();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,14 +32,14 @@ export default function Login() {
     },
   });
 
-  useEffect(() => {
-    const username = localStorage.getItem("username");
-    if (username) {
-      dispatch(setEmail(username));
-      form.setValue("email", username);
-      setShowPassword(true);
-    }
-  }, []); // Empty dependency array
+  // useEffect(() => {
+  //   const username = localStorage.getItem("username");
+  //   if (username) {
+  //     dispatch(setEmail(username));
+  //     form.setValue("email", username);
+  //     setShowPassword(true);
+  //   }
+  // }, []); // Empty dependency array
 
   async function handleNextClick() {
     try {
@@ -64,35 +65,14 @@ export default function Login() {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       const response = await doLogin(data).unwrap();
-     if (response.token) {
-       storeToken("access_token", response.token);
-       toast.success("Login successful");
-       setTimeout(() => navigate("/admin/dashboard"), 0); // Adjust timing if needed
-     } else {
-     }
-    } catch (error: unknown) {
-      if (typeof error === "object" && error !== null) {
-        if ("status" in error) {
-          // This is a FetchBaseQueryError
-          const fetchError = error as FetchBaseQueryError;
-          if (
-            typeof fetchError.data === "object" &&
-            fetchError.data !== null &&
-            "message" in fetchError.data
-          ) {
-            toast.error(fetchError.data.message as string);
-          } else {
-            toast.error("An error occurred during login.");
-          }
-        } else if ("message" in error) {
-          // This might be a SerializedError
-          toast.error(error.message as string);
-        } else {
-          toast.error("An unexpected error occurred. Please try again.");
-        }
+      if (response.access_token) {
+        storeToken("access_token", response.access_token);
+        toast.success("Login successful");
+        setTimeout(() => navigate("/admin/dashboard"), 0); // Adjust timing if needed
       } else {
-        toast.error("An unexpected error occurred. Please try again.");
       }
+    } catch (error: unknown) {
+      handleError(error);
     }
   };
 
