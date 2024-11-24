@@ -18,7 +18,7 @@ export default function AppLayout() {
 
   // If authenticated, render the layout
   return (
-    <div className="w-full h-screen bg-gray-100 flex">
+    <div className="w-full min-h-screen bg-gray-100 flex">
       <aside className="h-full">
         <AppSideBar />
       </aside>

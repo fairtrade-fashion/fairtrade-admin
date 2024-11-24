@@ -1,9 +1,7 @@
 import { api } from "@/app/services/api";
 import {
-  EditProduct,
   FetchProductResponse,
   Product,
-  ProductRequest,
   ProductResponse,
 } from "../models/products.model";
 
@@ -35,25 +33,24 @@ export const productApi = api.injectEndpoints({
       },
       providesTags: ["Products"],
     }),
-    createProduct: build.mutation<ProductResponse, ProductRequest>({
-      query: (body) => ({
+    createProduct: build.mutation<ProductResponse, FormData>({
+      query: (formData) => ({
         url: "/products",
         method: "POST",
-        body: body,
+        body: formData,
+        formData: true, // This tells RTK Query that we're sending FormData
       }),
-      transformResponse: (response: ProductResponse) => {
-        return response;
-      },
       invalidatesTags: ["Products"],
     }),
     editProduct: build.mutation<
       ProductResponse,
-      { id: string; data: EditProduct }
+      { id: string; data: FormData }
     >({
       query: ({ id, data }) => ({
         url: `/products/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: data,
+        formData: true,
       }),
       transformResponse: (response: ProductResponse) => {
         return response;

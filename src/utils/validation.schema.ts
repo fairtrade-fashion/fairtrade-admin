@@ -27,22 +27,12 @@ export const sizeSchema = z.object({
 export const productSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
-  price: z.number().positive("Price must be a positive number"),
-  stock: z.number().int().positive("Stock must be a positive integer"),
+  price: z.string().min(1, "Price is required"),
+  stock: z.string().min(1, "Stock is required"),
   categoryId: z.string().min(1, "Category ID is required"),
-  imageUrls: z
-    .array(z.string().url("Invalid URL"))
-    .min(1, "At least one image URL is required"),
-  sizes: z.array(
-    z.object({
-      id: z.string(),
-      stock: z.number(),
-    })
-  ),
-  colors: z.array(
-    z.object({
-      id: z.string(),
-      stock: z.number(),
-    })
-  ),
+  sizes: z.string().min(1, "Sizes are required"),
+  colors: z.string().min(1, "Colors are required"),
+  images: z.array(z.instanceof(File)).min(1, "At least one image is required"),
 });
+
+export type ProductFormData = z.infer<typeof productSchema>;

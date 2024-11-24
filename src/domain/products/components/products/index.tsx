@@ -1,11 +1,13 @@
-import CreateProducts from "./components/create_products";
-import ProductsPage from "./components/products.page";
+import ProductsPage from "./components/products-page";
+import CreateProducts from "./components/create-products";
 
-export default function ProductTab() {
+const ProductTab: React.FC = () => {
   return (
-    <div>
+    <div className="flex flex-col space-y-6">
       <CreateProducts />
       <ProductsPage />
     </div>
   );
-}
+};
+
+export default ProductTab;

@@ -38,7 +38,7 @@ export interface FetchProductResponse {
 }
 
 export interface Product {
-  product_id: string;
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -47,7 +47,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   category: Category;
-  productImages: ProductImage[];
+  images: ProductImage[];
   sizes: Size[];
   colors: Color[];
 }
@@ -61,19 +61,19 @@ export interface Category {
 }
 
 export interface ProductImage {
-  image_id: string;
+  id: string;
   product_id: string;
-  imageUrl: string;
+  url: string;
   createdAt: string;
 }
 
 export interface Size {
-  size_id: string;
+  id: string;
   name: string;
 }
 
 export interface Color {
-  color_id: string;
+  id: string;
   name: string;
 }
 

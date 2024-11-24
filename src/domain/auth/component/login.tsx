@@ -70,6 +70,7 @@ export default function Login() {
         toast.success("Login successful");
         setTimeout(() => navigate("/admin/dashboard"), 0); // Adjust timing if needed
       } else {
+        console.log(response);
       }
     } catch (error: unknown) {
       handleError(error);
