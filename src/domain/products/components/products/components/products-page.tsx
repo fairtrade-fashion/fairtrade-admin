@@ -16,7 +16,7 @@ const ProductsPage: React.FC = () => {
   const filterState = useAppSelector((state) => state.product);
   const { data: products } = useFetchProductsQuery(filterState);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [viewProductId, setViewProductId] = useState<string | null>(null);
+  const [, setViewProductId] = useState<string | null>(null);
 
   const handleEditClick = useCallback((product: Product) => {
     setEditingProduct(product);

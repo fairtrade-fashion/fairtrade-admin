@@ -166,7 +166,7 @@
 //   );
 // };
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Control } from "react-hook-form";
 import { Checkbox } from "@/components/checkbox";
 import { Input } from "@/components/input";

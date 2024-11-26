@@ -29,14 +29,14 @@ export default function SizeTable() {
         <div id="table-body" className="">
           {sizeData?.map((data) => (
             <ul
-              key={data.size_id}
+              key={data.id}
               className=" flex justify-between items-center p-2 font-bold  bg-white mb-5 border-b"
             >
               <li className=" basis-0 flex-1 p-1 capitalize flex gap-[10px] items-center">
                 <span>{data.name}</span>
               </li>
               <li
-                onClick={() => handleDelete(data.size_id)}
+                onClick={() => handleDelete(data.id)}
                 className=" basis-0  p-1 capitalize text-red-500 cursor-pointer"
               >
                 <MdDelete />

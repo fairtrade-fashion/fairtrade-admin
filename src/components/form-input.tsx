@@ -22,20 +22,21 @@ export const FormInput: React.FC<FormInputProps> = ({
       {label}
     </label>
     <Controller
-      name={name}
+      name={name as keyof ProductFormData}
       control={control}
       render={({ field }) => (
         <input
           type={type}
           id={name}
           {...field}
+          value={typeof field.value === "string" ? field.value : ""}
           className="mt-1 block w-full border rounded"
         />
       )}
     />
-    {errors?.name && (
+    {errors?.[name] && (
       <p className="text-red-500 text-sm mt-1">
-        {errors?.name?.message || "something went wrong"}
+        {errors[name]?.message || "something went wrong"}
       </p>
     )}
   </div>
