@@ -32,7 +32,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onViewClick }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {products.products.map((product) => (
         <Card
-          key={product?.product_id}
+          key={product?.id}
           className="overflow-hidden transition-all duration-300 hover:shadow-lg"
         >
           <CardHeader className="p-0">
