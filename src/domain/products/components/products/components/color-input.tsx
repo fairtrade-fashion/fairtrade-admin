@@ -194,7 +194,7 @@ export function ColorInput({
 
   useEffect(() => {
     setSelectedColors(initialColors);
-  }, [initialColors]);
+  }, []);
 
   const handleColorToggle = (colorId: string, checked: boolean) => {
     if (checked) {

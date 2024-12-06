@@ -86,3 +86,50 @@ export interface EditProduct {
   sizes: string[];
   colors: string[];
 }
+
+export interface SingleProductRoot {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  createdAt: string;
+  updatedAt: string;
+  images: SingleProductImage[];
+  category: SingleProductCategory;
+  sizes: SingleProductSize[];
+  colors: SingleProductColor[];
+}
+
+export interface SingleProductImage {
+  id: string;
+  url: string;
+}
+
+export interface SingleProductCategory {
+  id: string;
+  name: string;
+  parentId: any;
+}
+
+export interface SingleProductSize {
+  id: string;
+  stock: number;
+  size: SingleProductSize2;
+}
+
+export interface SingleProductSize2 {
+  id: string;
+  name: string;
+}
+
+export interface SingleProductColor {
+  id: string;
+  stock: number;
+  color: SingleProductColor2;
+}
+
+export interface SingleProductColor2 {
+  id: string;
+  name: string;
+}

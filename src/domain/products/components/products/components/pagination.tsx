@@ -11,7 +11,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  onLimitChange,
+  // onLimitChange,
 }) => {
   return (
     <div className="flex items-center justify-center mt-10 space-x-4">
@@ -32,7 +32,7 @@ const Pagination: React.FC<PaginationProps> = ({
       >
         Next
       </button>
-      <select
+      {/* <select
         value={currentPage}
         onChange={(e) => onLimitChange(e.target.value)}
         className="border rounded p-2"
@@ -41,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <option value="10">10 per page</option>
         <option value="20">20 per page</option>
         <option value="50">50 per page</option>
-      </select>
+      </select> */}
     </div>
   );
 };

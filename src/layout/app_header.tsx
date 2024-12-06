@@ -14,8 +14,8 @@ export default function AppHeader() {
               ? "Products"
               : location.pathname.includes("category")
               ? "Category"
-              : location.pathname.includes("revenue")
-              ? "Revenue Assurance"
+              : location.pathname.includes("orders")
+              ? "Orders"
               : null}
           </h1>
           <MobileSidebar />

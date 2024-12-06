@@ -201,6 +201,7 @@ export default function ProductForm({ onSuccess }: { onSuccess: () => void }) {
               <FormLabel>Product Images</FormLabel>
               <ImageUploader
                 onImagesChange={(files) => field.onChange(files)}
+                existingImages={[]}
               />
               <FormMessage />
             </FormItem>

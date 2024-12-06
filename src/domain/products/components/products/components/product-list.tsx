@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   FetchProductResponse,
   Product,
@@ -16,6 +16,19 @@ import {
 import { AspectRatio } from "@/components/aspect-ratio";
 import { Skeleton } from "@/components/skeleton";
 import EditProductModal from "./edit-product-modal";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/alert-dialog";
+import { toast } from "sonner";
+import { useDeleteProductMutation } from "@/domain/products/api/product.api";
+import useErrorHandler from "@/domain/categories/hooks/handle_submit.hooks";
 
 interface ProductListProps {
   products: FetchProductResponse;
@@ -24,9 +37,37 @@ interface ProductListProps {
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products, onViewClick }) => {
+  const [selectedProduct, setSelectedProduct] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   if (!products || products.products.length === 0) {
     return <ProductListSkeleton />;
   }
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+  const handleError = useErrorHandler();
+  const handleDeleteClick = (product: Product) => {
+    setSelectedProduct({ id: product.id, name: product.name });
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedProduct) return;
+
+    try {
+      await deleteProduct({ id: selectedProduct.id })
+        .unwrap()
+        .then(() => {
+          toast.success("Category Deleted Successfully");
+        });
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsDeleteDialogOpen(false);
+      setSelectedProduct(null);
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -40,6 +81,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onViewClick }) => {
               <img
                 src={product?.images?.[0]?.url ?? "/placeholder.png"}
                 alt={product?.name}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
             </AspectRatio>
@@ -54,7 +96,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onViewClick }) => {
           </CardContent>
           <CardFooter className="p-4 pt-0 gap-2 flex-wrap">
             <Button
-              onClick={() => onViewClick(product?.id)}
+              onClick={() => onViewClick(product.id)}
               size="sm"
               variant="outline"
               className="flex-1"
@@ -62,18 +104,47 @@ const ProductList: React.FC<ProductListProps> = ({ products, onViewClick }) => {
               <Eye className="w-4 h-4 mr-2" /> View
             </Button>
             <EditProductModal product={product} />
-
-            <Button size="sm" variant="destructive" className="flex-1">
+            <Button
+              size="sm"
+              variant="destructive"
+              className="flex-1"
+              onClick={() => handleDeleteClick(product)}
+            >
               <Trash2 className="w-4 h-4 mr-2" /> Delete
             </Button>
           </CardFooter>
         </Card>
       ))}
+
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete{" "}
+              <span className="font-semibold">{selectedProduct?.name}</span>.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isLoading ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
 
-const ProductListSkeleton: React.FC = () => (
+export const ProductListSkeleton: React.FC = () => (
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     {[...Array(8)].map((_, index) => (
       <Card key={index} className="overflow-hidden">

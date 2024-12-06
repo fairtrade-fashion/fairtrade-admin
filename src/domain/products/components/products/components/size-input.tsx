@@ -194,7 +194,7 @@ export function SizeInput({
 
   useEffect(() => {
     setSelectedSizes(initialSizes);
-  }, [initialSizes]);
+  }, []);
 
   const handleSizeToggle = (sizeId: string, checked: boolean) => {
     if (checked) {

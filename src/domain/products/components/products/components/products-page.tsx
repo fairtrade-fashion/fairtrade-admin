@@ -4,19 +4,21 @@ import { useAppDispatch, useAppSelector } from "@/app/app.hooks";
 import { useFetchProductsQuery } from "@/domain/products/api/product.api";
 import { Product } from "@/domain/products/models/products.model";
 import { View_ProductPage } from "@/app/features/page_slider.slice";
-import { setPage, setLimit } from "@/app/features/product.slice";
+import {
+  setPage,
+  setLimit,
+  setSelectedProduct,
+} from "@/app/features/product.slice";
 import ProductFilters from "./products-filters";
-import ProductList from "./product-list";
+import ProductList, { ProductListSkeleton } from "./product-list";
 import Pagination from "./pagination";
 import EditProductModal from "./edit-product-modal";
-// import { EditProductModal } from "./edit-product-modal";
 
 const ProductsPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const filterState = useAppSelector((state) => state.product);
   const { data: products } = useFetchProductsQuery(filterState);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [, setViewProductId] = useState<string | null>(null);
 
   const handleEditClick = useCallback((product: Product) => {
     setEditingProduct(product);
@@ -24,13 +26,13 @@ const ProductsPage: React.FC = () => {
 
   const handleViewClick = useCallback(
     (productId: string) => {
-      setViewProductId(productId);
+      dispatch(setSelectedProduct(productId));
       dispatch(View_ProductPage());
     },
     [dispatch]
   );
 
-  if (!products) return <div>Loading...</div>;
+  if (!products) return <ProductListSkeleton />;
 
   return (
     <div className="flex flex-col lg:flex-row items-start gap-5 mt-5 w-full">
