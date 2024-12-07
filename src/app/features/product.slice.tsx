@@ -1,5 +1,4 @@
 // productSlice.ts
-import { Product } from "@/domain/products/models/products.model";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProductState {
@@ -12,7 +11,7 @@ export interface ProductState {
   size: string;
   sortBy: "name" | "price" | "createdAt";
   category: string;
-  selectedProduct: Product | null;
+  selectedProductId: string;
 }
 
 const initialState: ProductState = {
@@ -25,7 +24,7 @@ const initialState: ProductState = {
   size: "",
   sortBy: "createdAt",
   category: "",
-  selectedProduct: null,
+  selectedProductId: "",
 };
 
 const productSlice = createSlice({
@@ -65,8 +64,8 @@ const productSlice = createSlice({
     resetFilters: () => {
       return initialState;
     },
-    setSelectedProduct: (state, action: PayloadAction<Product | null>) => {
-      state.selectedProduct = action.payload;
+    setSelectedProduct: (state, action: PayloadAction<string>) => {
+      state.selectedProductId = action.payload;
     },
   },
 });

@@ -9,6 +9,7 @@ import { FaClipboardList } from "react-icons/fa";
 import { ImUsers } from "react-icons/im";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { IoGolfSharp } from "react-icons/io5";
 
 export const routes = [
   {
@@ -29,11 +30,12 @@ export const routes = [
     icon: <RiLuggageCartFill className="h-6 w-6" />,
     icon2: <RiLuggageCartLine className="h-6 w-6" />,
   },
-  //   {
-  //     path: "/in-country/states",
-  //     label: "States",
-  //     icon: <IoGolfSharp className="h-6 w-6" />,
-  //   },
+  {
+    path: "/admin/orders",
+    label: "Orders",
+    icon: <IoGolfSharp className="h-6 w-6" />,
+    icon2: <IoGolfSharp className="h-6 w-6" />,
+  },
   //   {
   //     path: "/in-country/revenue",
   //     label: "Revenue Assurance",

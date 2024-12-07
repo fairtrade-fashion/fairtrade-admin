@@ -1,8 +1,8 @@
 import { api } from "@/app/services/api";
 import {
   FetchProductResponse,
-  Product,
   ProductResponse,
+  SingleProductRoot,
 } from "../models/products.model";
 
 export const productApi = api.injectEndpoints({
@@ -64,12 +64,12 @@ export const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
-    viewProduct: build.query<Product, { id: string }>({
+    viewProduct: build.query<SingleProductRoot, { id: string }>({
       query: ({ id }) => ({
         url: `/products/${id}`,
         method: "GET",
       }),
-      transformResponse: (response: Product) => {
+      transformResponse: (response: SingleProductRoot) => {
         return response;
       },
       providesTags: ["Products"],

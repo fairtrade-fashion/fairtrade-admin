@@ -24,7 +24,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         preview: img.url,
       }))
     );
-  }, [existingImages]);
+  }, []);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -36,6 +36,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
       setUploadedImages((prev) => {
         const updatedImages = [...prev, ...newImages];
+        console.log("updatedImages::: ", updatedImages);
         onImagesChange(
           updatedImages.filter((img) => img.file).map((img) => img.file!)
         );
@@ -58,10 +59,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   };
 
   React.useEffect(() => {
-    return () =>
+    return () => {
       uploadedImages.forEach((img) => {
         if (img.file) URL.revokeObjectURL(img.preview);
       });
+      console.log("uploadedImages::: ", uploadedImages);
+    };
   }, [uploadedImages]);
 
   return (
@@ -91,6 +94,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 src={image.preview}
                 alt="Uploaded preview"
                 className="w-full h-32 object-cover rounded-lg"
+                loading="lazy"
               />
               <Button
                 variant="destructive"
