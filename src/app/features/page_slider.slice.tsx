@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 
 export enum ProductPageSlider {
   productPageClose = "productPageClose",
@@ -13,7 +13,7 @@ const initialState: TinitialState = {
   productPageSlider: ProductPageSlider.productPageClose,
 };
 
-export const pageSliderSlice = createSlice({
+export const pageSliderSlice: Slice<TinitialState> = createSlice({
   name: "pageSlider",
   initialState,
   reducers: {

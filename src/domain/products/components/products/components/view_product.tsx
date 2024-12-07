@@ -44,7 +44,7 @@ export default function ViewProduct() {
     <div className="h-full w-full ">
       <div className=" w-full rounded-lg bg-white p-4">
         <p
-          onClick={() => dispatch(productPageClose())}
+          onClick={() => dispatch(productPageClose(productId))}
           className="flex w-full cursor-pointer items-center gap-2"
         >
           <span>

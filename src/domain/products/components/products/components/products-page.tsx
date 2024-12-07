@@ -27,7 +27,7 @@ const ProductsPage: React.FC = () => {
   const handleViewClick = useCallback(
     (productId: string) => {
       dispatch(setSelectedProduct(productId));
-      dispatch(View_ProductPage());
+      dispatch(View_ProductPage(productId));
     },
     [dispatch]
   );

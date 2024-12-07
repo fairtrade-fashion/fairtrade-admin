@@ -3,11 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import { Button } from "@/components/button";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface OrderDetailsProps {
-  orderId: string;
-}
-
-const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
+const OrderDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const {
