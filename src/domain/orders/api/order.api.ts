@@ -1,5 +1,9 @@
 import { api } from "@/app/services/api";
-import { OrderRoot, SingleOrderRoot } from "../model/order.model";
+import {
+  OrderRoot,
+  OrderStatusResponseRoot,
+  SingleOrderRoot,
+} from "../model/order.model";
 
 export const OrderApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -27,7 +31,23 @@ export const OrderApi = api.injectEndpoints({
       }),
       providesTags: ["Order"],
     }),
+    orderStatus: builder.mutation<
+      OrderStatusResponseRoot,
+      { id: string; status: string }
+    >({
+      query: ({ id, status }) => ({
+        url: `orders/user/orders/status`,
+        method: "PATCH",
+        body: { id, status },
+        formData: true,
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useGetOrderQuery, useGetOrderByIdQuery } = OrderApi;
+export const {
+  useGetOrderQuery,
+  useGetOrderByIdQuery,
+  useOrderStatusMutation,
+} = OrderApi;

@@ -1,3 +1,4 @@
+import AdminPage from "@/domain/admin";
 import Login from "@/domain/auth/component/login";
 import AuthLayout from "@/domain/auth/layout/auth.layout";
 import Categories from "@/domain/categories";
@@ -62,6 +63,10 @@ export default function appRouter(): RouteObject[] {
             { path: "", element: <OrderModuleView /> },
             { path: "order-detail/:id", element: <OrderDetail /> },
           ],
+        },
+        {
+          path: "admin",
+          element: <AdminPage />,
         },
       ],
     },

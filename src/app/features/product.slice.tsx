@@ -2,27 +2,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProductState {
-  search: string;
+  name: string;
   page: number;
   limit: number;
-  minPrice: number;
-  maxPrice: number;
+  minPrice: string;
+  maxPrice: string;
   color: string;
   size: string;
-  sortBy: "name" | "price" | "createdAt";
+  sortBy: string;
   category: string;
   selectedProductId: string;
 }
 
 const initialState: ProductState = {
-  search: "",
+  name: "",
   page: 1,
   limit: 10,
-  minPrice: 0,
-  maxPrice: 0,
+  minPrice: "",
+  maxPrice: "",
   color: "",
   size: "",
-  sortBy: "createdAt",
+  sortBy: "",
   category: "",
   selectedProductId: "",
 };
@@ -32,7 +32,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setSearch: (state, action: PayloadAction<string>) => {
-      state.search = action.payload;
+      state.name = action.payload;
     },
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
@@ -40,10 +40,10 @@ const productSlice = createSlice({
     setLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
     },
-    setMinPrice: (state, action: PayloadAction<number>) => {
+    setMinPrice: (state, action: PayloadAction<string>) => {
       state.minPrice = action.payload;
     },
-    setMaxPrice: (state, action: PayloadAction<number>) => {
+    setMaxPrice: (state, action: PayloadAction<string>) => {
       state.maxPrice = action.payload;
     },
     setColor: (state, action: PayloadAction<string>) => {
@@ -52,10 +52,7 @@ const productSlice = createSlice({
     setSize: (state, action: PayloadAction<string>) => {
       state.size = action.payload;
     },
-    setSortBy: (
-      state,
-      action: PayloadAction<"name" | "price" | "createdAt">
-    ) => {
+    setSortBy: (state, action: PayloadAction<string>) => {
       state.sortBy = action.payload;
     },
     setCategory: (state, action: PayloadAction<string>) => {

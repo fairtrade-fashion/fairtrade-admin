@@ -11,21 +11,31 @@ export const productApi = api.injectEndpoints({
     fetchProducts: build.query<
       FetchProductResponse,
       {
-        search: string;
+        name: string;
         page: number;
         limit: number;
-        minPrice: number;
-        maxPrice: number;
-        color: string;
-        size: string;
+        // minPrice: string;
+        // maxPrice: string;
+        // color: string;
+        // size: string;
         sortBy: string;
         category: string;
       }
     >({
-      query: (params) => ({
-        url: "/products",
+      query: ({
+        name,
+        page,
+        limit,
+        // minPrice,
+        // maxPrice,
+        // color,
+        // size,
+        sortBy,
+        category,
+      }) => ({
+        url: `/products/search?name=${name}&page=${page}&limit=${limit}&sortBy=${sortBy}&category=${category}
+        `,
         method: "GET",
-        params: params,
       }),
       transformResponse: (response: FetchProductResponse) => {
         console.log("response::: ", response);

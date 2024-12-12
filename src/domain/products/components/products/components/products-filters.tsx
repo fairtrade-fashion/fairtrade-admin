@@ -141,15 +141,15 @@
 
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/app.hooks";
-import { useGetColorsQuery } from "@/domain/products/api/colors.api";
-import { useGetSizesQuery } from "@/domain/products/api/size.api";
+// import { useGetColorsQuery } from "@/domain/products/api/colors.api";
+// import { useGetSizesQuery } from "@/domain/products/api/size.api";
 import { useGetCategoriesQuery } from "@/domain/categories/api/category.api";
 import {
   setSearch,
-  setMinPrice,
-  setMaxPrice,
-  setColor,
-  setSize,
+  // setMinPrice,
+  // setMaxPrice,
+  // setColor,
+  // setSize,
   setSortBy,
   setCategory,
   resetFilters,
@@ -163,7 +163,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/select";
-import { Slider } from "@/components/slider";
+// import { Slider } from "@/components/slider";
 import { Button } from "@/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import { Separator } from "@/components/seperator";
@@ -173,8 +173,8 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 const ProductFilters: React.FC = () => {
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.product);
-  const { data: colorData } = useGetColorsQuery();
-  const { data: sizeData } = useGetSizesQuery();
+  // const { data: colorData } = useGetColorsQuery();
+  // const { data: sizeData } = useGetSizesQuery();
   const { data: categoryData } = useGetCategoriesQuery();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -237,13 +237,13 @@ const ProductFilters: React.FC = () => {
                 <Input
                   id="search"
                   type="text"
-                  value={filters.search}
+                  value={filters.name}
                   onChange={(e) => dispatch(setSearch(e.target.value))}
                   placeholder="Search products"
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <Label>Price Range</Label>
                 <div className="flex items-center space-x-4">
                   <Input
@@ -276,11 +276,11 @@ const ProductFilters: React.FC = () => {
                   }}
                   className="mt-4"
                 />
-              </div>
+              </div> */}
 
               <Separator />
 
-              <div>
+              {/* <div>
                 <Label htmlFor="color">Colors</Label>
                 <Select
                   value={filters.color || "all-colors"}
@@ -322,7 +322,7 @@ const ProductFilters: React.FC = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </div> */}
 
               <div>
                 <Label htmlFor="sortBy">Sort by</Label>
@@ -339,10 +339,8 @@ const ProductFilters: React.FC = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="default">Default</SelectItem>
-                    <SelectItem value="name">Name</SelectItem>
-                    <SelectItem value="price">Price: Low to High</SelectItem>
-                    <SelectItem value="-price">Price: High to Low</SelectItem>
-                    <SelectItem value="createdAt">Date Created</SelectItem>
+                    <SelectItem value="asc">Asc</SelectItem>
+                    <SelectItem value="desc">Desc</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

@@ -10,14 +10,15 @@ import {
   setSelectedProduct,
 } from "@/app/features/product.slice";
 import ProductFilters from "./products-filters";
-import ProductList, { ProductListSkeleton } from "./product-list";
+
 import Pagination from "./pagination";
 import EditProductModal from "./edit-product-modal";
+import ProductList from "./product-list";
 
 const ProductsPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const filterState = useAppSelector((state) => state.product);
-  const { data: products } = useFetchProductsQuery(filterState);
+  const { data: products, isLoading } = useFetchProductsQuery(filterState);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const handleEditClick = useCallback((product: Product) => {
@@ -32,17 +33,18 @@ const ProductsPage: React.FC = () => {
     [dispatch]
   );
 
-  if (!products) return <ProductListSkeleton />;
-
   return (
     <div className="flex flex-col lg:flex-row items-start gap-5 mt-5 w-full">
       <ProductFilters />
       <div className="w-full">
-        <ProductList
-          products={products}
-          onEditClick={handleEditClick}
-          onViewClick={handleViewClick}
-        />
+        {products && (
+          <ProductList
+            products={products}
+            onEditClick={handleEditClick}
+            onViewClick={handleViewClick}
+            Loading={isLoading}
+          />
+        )}
         <Pagination
           currentPage={filterState.page}
           totalPages={Math.ceil((products?.total || 0) / filterState.limit)}
@@ -54,5 +56,4 @@ const ProductsPage: React.FC = () => {
     </div>
   );
 };
-
 export default ProductsPage;

@@ -81,3 +81,14 @@ export interface SingleOrderUser {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface OrderStatusResponseRoot {
+  id: string;
+  userId: string;
+  status: string;
+  total: number;
+  paymentReference: string;
+  shippingAddressId: string;
+  createdAt: string;
+  updatedAt: string;
+}

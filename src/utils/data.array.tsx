@@ -5,7 +5,7 @@ import {
 } from "react-icons/ai";
 import { RiLuggageCartFill, RiLuggageCartLine } from "react-icons/ri";
 import { GiReceiveMoney } from "react-icons/gi";
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaUser } from "react-icons/fa";
 import { ImUsers } from "react-icons/im";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
@@ -36,11 +36,12 @@ export const routes = [
     icon: <IoGolfSharp className="h-6 w-6" />,
     icon2: <IoGolfSharp className="h-6 w-6" />,
   },
-  //   {
-  //     path: "/in-country/revenue",
-  //     label: "Revenue Assurance",
-  //     icon: <FaSackDollar className="h-6 w-6" />,
-  //   },
+  {
+    path: "/admin/admin",
+    label: "Admin",
+    icon: <FaUser className="h-6 w-6" />,
+    icon2: <FaUser className="h-6 w-6" />,
+  },
 ];
 
 export const counterData = [
