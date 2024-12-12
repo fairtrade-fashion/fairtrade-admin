@@ -47,7 +47,7 @@ const OrderDetails: React.FC = () => {
                   Status: <span className="font-medium">{order.status}</span>
                 </p>
                 <p>
-                  Total: <span className="font-medium">${order.total}</span>
+                  Total: <span className="font-medium">₦{order.total}</span>
                 </p>
                 <p>
                   Payment Reference:{" "}
@@ -100,7 +100,7 @@ const OrderDetails: React.FC = () => {
                       <td className="p-2 border">${item.price}</td>
                       <td className="p-2 border">{item.quantity}</td>
                       <td className="p-2 border">
-                        ${item.price * item.quantity}
+                        ₦{item.price * item.quantity}
                       </td>
                     </tr>
                   ))}
@@ -110,7 +110,7 @@ const OrderDetails: React.FC = () => {
                     <td colSpan={3} className="p-2 border text-right font-bold">
                       Total:
                     </td>
-                    <td className="p-2 border font-bold">${order.total}</td>
+                    <td className="p-2 border font-bold">₦{order.total}</td>
                   </tr>
                 </tfoot>
               </table>

@@ -16,6 +16,8 @@ export default function AppHeader() {
               ? "Category"
               : location.pathname.includes("orders")
               ? "Orders"
+              : location.pathname.includes("admin")
+              ? "Admin"
               : null}
           </h1>
           <MobileSidebar />
