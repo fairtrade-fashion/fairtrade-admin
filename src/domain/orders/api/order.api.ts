@@ -33,12 +33,12 @@ export const OrderApi = api.injectEndpoints({
     }),
     orderStatus: builder.mutation<
       OrderStatusResponseRoot,
-      { id: string; status: string }
+      { orderId: string; status: string }
     >({
-      query: ({ id, status }) => ({
+      query: ({ orderId, status }) => ({
         url: `orders/user/orders/status`,
         method: "PATCH",
-        body: { id, status },
+        body: { orderId, status },
         formData: true,
       }),
       invalidatesTags: ["Order"],

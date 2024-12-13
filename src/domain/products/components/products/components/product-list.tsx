@@ -246,11 +246,10 @@ const ProductList: React.FC<ProductListProps> = ({
         .then(() => {
           toast.success("Category Deleted Successfully");
         });
-    } catch (error) {
-      handleError(error);
-    } finally {
       setIsDeleteDialogOpen(false);
       setSelectedProduct(null);
+    } catch (error) {
+      handleError(error);
     }
   };
 

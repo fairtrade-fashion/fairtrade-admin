@@ -7,7 +7,7 @@ export default function AppHeader() {
     <header className="h-fit flex items-center bg-white w-full fixed py-3 z-30">
       <nav className=" flex flex-col lg:flex-row gap-2 lg:items-center p-4  w-full justify-between">
         <div className="flex w-full justify-between items-center">
-          <h1 className="font-bold text-2xl  uppercase text-slate-900">
+          <h1 className="font-bold lg:text-2xl  uppercase text-slate-900">
             {location.pathname.includes("dashboard")
               ? "Dashboard"
               : location.pathname.includes("products")
