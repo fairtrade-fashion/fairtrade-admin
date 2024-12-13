@@ -55,10 +55,10 @@ export const SkeletonLoader = () => (
       <table className="table-auto w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-4 py-2">#</th>
-            <th className="border border-gray-300 px-4 py-2">Product Name</th>
-            <th className="border border-gray-300 px-4 py-2">Quantity Sold</th>
-            <th className="border border-gray-300 px-4 py-2">Total Revenue</th>
+            <th className="border border-gray-300 px-4 py-2"></th>
+            <th className="border border-gray-300 px-4 py-2"></th>
+            <th className="border border-gray-300 px-4 py-2"></th>
+            <th className="border border-gray-300 px-4 py-2"></th>
           </tr>
         </thead>
         <tbody>

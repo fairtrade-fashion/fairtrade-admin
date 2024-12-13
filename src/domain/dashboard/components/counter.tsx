@@ -11,10 +11,25 @@ import { ImUsers } from "react-icons/im";
 import { AiFillProduct } from "react-icons/ai";
 
 export default function Counter() {
-  const { data: totalSales } = useTotalSalesQuery();
-  const { data: totalOrder } = useTotalOrdersQuery();
-  const { data: totalCustomers } = useTotalCustomersQuery();
-  const { data: totalProducts } = useTotalProductsQuery();
+
+  const POLLING_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+  const { data: totalSales } = useTotalSalesQuery(undefined, {
+    pollingInterval: POLLING_INTERVAL,
+  });
+
+  const { data: totalOrder } = useTotalOrdersQuery(undefined, {
+    pollingInterval: POLLING_INTERVAL,
+  });
+
+  const { data: totalProducts } = useTotalProductsQuery(undefined, {
+    pollingInterval: POLLING_INTERVAL,
+  });
+
+  const { data: totalCustomers } = useTotalCustomersQuery(undefined, {
+    pollingInterval: POLLING_INTERVAL,
+  });
+
   return (
     <main className="w-full h-full">
       <div className="grid md:grid-cols-4 grid-cols-2 w-full gap-5">
