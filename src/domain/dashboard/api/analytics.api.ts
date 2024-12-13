@@ -1,5 +1,6 @@
 import { api } from "@/app/services/api";
 import {
+  TopSellingProduct,
   TotalCustomersRoot,
   TotalOrderRoot,
   TotalProductsRoot,
@@ -15,9 +16,9 @@ export const DashboardApi = api.injectEndpoints({
       }),
       providesTags: ["Analytics"],
     }),
-    topSellingProducts: builder.query<number, void>({
-      query: () => ({
-        url: `/analytics/top-selling-products`,
+    topSellingProducts: builder.query<TopSellingProduct[], { limit: number }>({
+      query: ({ limit }) => ({
+        url: `/analytics/top-selling-products?limit=${limit}`,
         method: "GET",
       }),
       providesTags: ["Analytics"],

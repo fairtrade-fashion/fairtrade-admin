@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useGetOrderQuery } from "../api/order.api";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { SkeletonLoader } from "@/domain/dashboard/components/product-table";
 
 const OrdersTable: React.FC = () => {
   const [page, setPage] = useState(0);
@@ -20,8 +21,7 @@ const OrdersTable: React.FC = () => {
     take,
   });
 
-  if (isLoading)
-    return <div className="p-4 text-center">Loading orders...</div>;
+  if (isLoading) return <SkeletonLoader />;
   if (isError)
     return (
       <div className="p-4 text-center text-red-500">Error loading orders</div>
